@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO APP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class=" scrollable-content">
+    <div class="title-container">
+        <h1 class="title">TO-DO APP</h1>
+    </div>
+    <div id="header"> 
+        <div id="btns"></div> 
+        <div id="radio">
+            <fieldset>
+                <legend>Filter</legend>
+                <input type="radio" name="filter" id="All" value="all" checked>
+                <label for="All">All</label>
+                <input type="radio" name="filter" id="Completed" value="Completed">
+                <label for="Completed">Completed</label>
+                <input type="radio" name="filter" id="Pending" value="Pending">
+                <label for="Pending">Pending</label>
+            </fieldset>
+        </div>
+    <!-- <legend class="colors"> Green = Completed / Blue = NonCompleted</legend> -->
+    </div>
+    <div id="cards" class="cards"></div>
+    <div id="toast"></div>
+    <script src="boton.js" type="module"></script>
+    <script src="toast.js" type="module"></script>
+    <script src="card.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+        
+    <!-- <script type="module">
+        import { addNewTodo } from "./script.js";
+
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdasasda")
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdas")
+        addNewTodo("dasdasdasdas")
+    </script> -->
+    
+</body>
+</html>
