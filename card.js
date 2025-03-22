@@ -84,27 +84,52 @@ export class Card {
 
         // checkbox to delete the task
         const deleteBtn = new Boton("delete", () => {
-            fetch(`https://jsonplaceholder.typicode.com/todos/${this.id}`, {
-                method: 'DELETE',
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo eliminar el task')
-                }
-                return response.json();
-            })
-            .then(data => {
-                const toast = new Toast('Tarea eliminada');
-                document.body.appendChild(toast.render());
-                console.log('Tarea eliminada', data);
-                card.style.opacity = 0;
-                card.style.transform = "translateX(50px)";
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);                
-            })
-            .catch(error => console.error(error));
-        }, "#B82132");
+
+            const confirmCard = document.createElement("div");
+            confirmCard.classList.add("confirm-card");
+            const confirmMessage = document.createElement("p");
+            confirmMessage.textContent = "¿Estás seguro que deseas eliminar la tarea?";
+            confirmCard.appendChild(confirmMessage);
+            const overlay = document.createElement("div");
+            overlay.classList.add("overlay");
+            document.body.appendChild(overlay);
+
+            const confirmBtn = new Boton("Yes", () => {
+                fetch(`https://jsonplaceholder.typicode.com/todos/${this.id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('No se pudo eliminar el task')
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const toast = new Toast('Tarea eliminada');
+                    document.body.appendChild(toast.render());
+                    console.log('Tarea eliminada', data);
+                    card.style.opacity = 0;
+                    card.style.transform = "translateX(50px)";
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);    
+                    document.body.removeChild(confirmCard);  
+                    document.body.removeChild(overlay);          
+                })
+                .catch(error => console.error(error));
+            }, "#B82132");
+
+            const cancelBtn = new Boton("No", () => {
+                document.body.removeChild(confirmCard);
+                document.body.removeChild(overlay);
+            }, "#4a7c59");
+
+            confirmCard.appendChild(confirmBtn.render());
+            confirmCard.appendChild(cancelBtn.render());
+
+            document.body.appendChild(confirmCard);
+
+        }, "#B82132")
 
         
         checkboxContainer.appendChild(statusCheck);
