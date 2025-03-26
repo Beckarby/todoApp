@@ -2,10 +2,11 @@ import { Toast } from "./toast.js";
 import { Boton } from "./boton.js"
     
 export class Card {
-    constructor(id, title, completed) {
+    constructor(id, title, completed, change) {
         this.id = id;
         this.title = title; // Whatever title (ipsum lorem)
         this.completed = completed; // boolean
+        this.change = change;
     }
 
     render() {
@@ -31,6 +32,9 @@ export class Card {
         // check if the task is completed
         statusCheck.addEventListener('change', () => {
             this.completed = statusCheck.checked;
+            if (this.change) {
+                this.change(this.id, this.completed);
+            }
             if (this.completed) {
                 card.style.backgroundColor = "#2D4521"; 
                 fetch(`https://jsonplaceholder.typicode.com/todos/${this.id}`, {

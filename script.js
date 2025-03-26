@@ -32,7 +32,12 @@ function renderTodos() {
     })
 
     filtered.forEach(todo => {
-        const card = new Card(todo.id, todo.title, todo.completed);
+        const card = new Card(todo.id, todo.title, todo.completed, (id, completed) => {
+            const index = todos.findIndex(todo => todo.id === id);
+            if (index !== -1) {
+                todos[index].completed = completed;
+            }
+        });
         cardsDiv.appendChild(card.render());
     })
     
